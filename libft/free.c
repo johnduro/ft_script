@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/20 23:10:59 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/28 22:28:25 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 20:25:55 by ael-kadh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int		search_alloc(void *ptr, t_sm *mem, size_t m_range)
 	i = 0;
 	while (i < 100)
 	{
-		if (mem->tab[i] != 0)
+		if (mem->tabl[i] != 0)
 		{
 			if (((void *)mem + ((i + 1) * m_range)) == ptr)
 			{
-				mem->tab[i] = 0;
+				mem->tabl[i] = 0;
 				return (1);
 			}
 		}

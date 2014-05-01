@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 14:21:27 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/28 22:35:40 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 20:22:03 by ael-kadh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -101,8 +101,8 @@ void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list	*ft_lstnew(void const *content, size_t content_size);
-int		ft_tab_realloc(char ***tab, char *str);
-void	ft_tabfree(char ***tab);
+int		ft_tab_realloc(char ***tabl, char *str);
+void	ft_tabfree(char ***tabl);
 void	ft_free_all_four(void *ptr1, void *ptr2, void *ptr3, void *ptr4);
 void	ft_exit(char *errmsg, int errnum);
 

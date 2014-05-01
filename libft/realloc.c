@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/20 23:15:06 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/28 22:30:32 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 20:26:20 by ael-kadh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ static void		*realloc_ts(t_sm *mem, void *ptr, size_t size, size_t m_range)
 	i = 0;
 	while (i < 100)
 	{
-		if (mem->tab[i] != 0)
+		if (mem->tabl[i] != 0)
 		{
 			if (((void *)mem + ((i + 1) * m_range)) == ptr)
 			{
 				if (size <= TINY_M)
 				{
-					mem->tab[i] = size;
+					mem->tabl[i] = size;
 					return (ptr);
 				}
 				else
 				{
-					mem->tab[i] = 0;
+					mem->tabl[i] = 0;
 					return (ft_memcpy(ft_malloc(size), ptr, size));
 				}
 			}

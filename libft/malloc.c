@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/20 23:01:02 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/28 22:26:52 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 20:23:54 by ael-kadh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void		*find_alloc(t_sm *mem, size_t size, int m_range)
 	i = 0;
 	while (i < 100)
 	{
-		if (mem->tab[i] == 0)
+		if (mem->tabl[i] == 0)
 		{
-			mem->tab[i] = size;
+			mem->tabl[i] = size;
 			return ((void *)mem + ((i + 1) * m_range));
 		}
 		i++;
@@ -41,7 +41,7 @@ static void		*tiny_malloc(size_t size)
 	{
 		g_pool.tiny_m = (t_sm *)mmap(0, 101 * TINY_M, PROT_READ | PROT_WRITE,
 									MAP_ANON | MAP_PRIVATE, -1, 0);
-		ft_bzero(g_pool.tiny_m->tab, 100 * sizeof(int));
+		ft_bzero(g_pool.tiny_m->tabl, 100 * sizeof(int));
 	}
 	bws_tiny = g_pool.tiny_m;
 	while (bws_tiny)
@@ -53,7 +53,7 @@ static void		*tiny_malloc(size_t size)
 	}
 	keep->next = (t_sm *)mmap(0, 101 * TINY_M, PROT_READ | PROT_WRITE,
 							MAP_ANON | MAP_PRIVATE, -1, 0);
-	ft_bzero(keep->next->tab, 100 * sizeof(int));
+	ft_bzero(keep->next->tabl, 100 * sizeof(int));
 	return (find_alloc(keep->next, size, TINY_M));
 }
 
@@ -67,7 +67,7 @@ static void		*small_malloc(size_t size)
 	{
 		g_pool.small_m = (t_sm *)mmap(0, 101 * SMALL_M, PROT_READ | PROT_WRITE,
 									MAP_ANON | MAP_PRIVATE, -1, 0);
-		ft_bzero(g_pool.small_m->tab, 100 * sizeof(int));
+		ft_bzero(g_pool.small_m->tabl, 100 * sizeof(int));
 	}
 	bws_small = g_pool.small_m;
 	while (bws_small)
@@ -79,7 +79,7 @@ static void		*small_malloc(size_t size)
 	}
 	keep->next = (t_sm *)mmap(0, 101 * SMALL_M, PROT_READ | PROT_WRITE,
 							MAP_ANON | MAP_PRIVATE, -1, 0);
-	ft_bzero(keep->next->tab, 100 * sizeof(int));
+	ft_bzero(keep->next->tabl, 100 * sizeof(int));
 	return (find_alloc(keep->next, size, SMALL_M));
 }
 

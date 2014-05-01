@@ -6,18 +6,17 @@
 #    By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/05/01 15:17:23 by mle-roy           #+#    #+#              #
-#    Updated: 2014/05/01 15:17:23 by mle-roy          ###   ########.fr        #
+#    Updated: 2014/05/01 20:28:30 by ael-kadh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=ft_script
 VERSION=1.0.3
-CFLAGS=-Wall -Werror -Wextra -g
+CFLAGS=-Wall -Werror -Wextra -g3
 INCLUDES=-I ./libft/includes
-LIBS=-L ./libft -l ft
+LIBS=-L ./libft -l ft -ltermcap
 
-SRC=main.c \
-	move.c \
+SRC=main.c move.c test.c m_strdup.c ft_termcaps.c
 
 OBJ=$(SRC:.c=.o)
 

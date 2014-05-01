@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/28 19:16:24 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/28 22:35:17 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 20:25:34 by ael-kadh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_large
 
 typedef struct		s_sm
 {
-	int				tab[100];
+	int				tabl[100];
 	struct s_sm		*next;
 }					t_sm;
 
