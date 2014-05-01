@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define USAGE "Please use it right\n"
+
 typedef char	t_bool;
 
 typedef struct		s_script
@@ -33,7 +35,7 @@ void			get_opt(char **av, t_script *script)
 					exit(ft_putstr_fd(USAGE));
 				j++;
 			}
-
+			break ;
 		}
 	}
 }

@@ -5,18 +5,19 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/04/30 15:20:54 by mle-roy           #+#    #+#              #
-#    Updated: 2014/04/30 15:20:54 by mle-roy          ###   ########.fr        #
+#    Created: 2014/05/01 15:17:23 by mle-roy           #+#    #+#              #
+#    Updated: 2014/05/01 15:17:23 by mle-roy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=ft_script
-VERSION=1.0.1
+VERSION=1.0.3
 CFLAGS=-Wall -Werror -Wextra -g
 INCLUDES=-I ./libft/includes
 LIBS=-L ./libft -l ft
 
 SRC=main.c \
+	move.c \
 
 OBJ=$(SRC:.c=.o)
 

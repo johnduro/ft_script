@@ -6,59 +6,52 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/29 19:28:03 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/30 17:16:16 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 18:40:37 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <util.h>
-#include "libft.h"
-#include <stdio.h>
 
-#define BUFF_SIZE 1024
-
-int		main(void)
-{
-	struct termios		term;
-	struct winsize		winp;
-	char				*name;
-	int					master;
-	int					slave;
-	int					fd;
-
-	fd = open("/dev/ptmx", O_RDONLY);
-	printf("fd= %d\n", fd);
-	return (0);
-}*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
+#include <grp.h>
+#include "libft.h"
 
-int		main()
+int		ft_login_tty(int fd)
 {
-	int zero=0;
-	char name[16];
-	int fds, fdm;
-	char	*real;
+	setsid();
+	if (ioctl(fd, TIOCSCTTY, NULL) == -1)
+		return (-1);
+	dup2(fd, 0);
+	dup2(fd, 1);
+	dup2(fd, 2);
+	if (fd > 2)
+		close(fd);
+	return (0);
+}
 
-	if ((fdm = open("/dev/ptmx", O_RDWR)) < 0)
-		exit(1);
+char	*ft_ptsname(int fdm)
+{
+	static char		ret[128];
 
-	real = ptsname(fdm);
-	if (ioctl(fdm, TIOCPTYGNAME, name) < 0)
-		exit(2);
-	//real = ptsname(fdm);
-//	sprintf(name, "/dev/pts/%i", n);
-	printf("name= %s\nreal=%s\n", name, real);
-	if (ioctl(fdm, TIOCPTYUNLK, &zero) < 0)
-	exit(3);
+	if (ioctl(fdm, TIOCPTYGNAME, ret) < 0)
+	 	return (NULL);
+	return (ret);
+}
 
-	if ((fds = open(name, O_RDWR)) < 0)
-		exit(4);
-	exit(0);
+int		ft_open_pts(int *fdm, int *fds)
+{
+	if ((*fdm = open("/dev/ptmx", O_RDWR | O_NOCTTY)) < 0)
+		return (-1);
+	ioctl(*fdm, TIOCPTYGRANT);
+	ioctl(*fdm, TIOCPTYUNLK);
+	if ((*fds = open(ft_ptsname(*fdm), O_RDWR | O_NOCTTY)) == -1)
+	{
+		write(1, "fds error\n", 10);
+		return (-1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/30 17:22:59 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/04/30 17:50:42 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/01 18:40:38 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-#include <libft.h>
 #include <fcntl.h>
 #include <util.h>
+#include "libft.h"
+
+int		ft_open_pts(int *fdm, int *fds);
+int		ft_login_tty(int fd);
 
 int main()
 {
@@ -32,8 +35,9 @@ int main()
 	name = ft_strnew(0);
 	if ((file = open("test_1", O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
 		exit(printf("exit fail"));
-    if (openpty(&fdm, &fds, name, NULL, NULL)) //a refaire
-      exit(1);
+   // if (openpty(&fdm, &fds, name, NULL, NULL)) //a refaire
+	if (ft_open_pts(&fdm, &fds) == -1) //DONE
+		exit(1);
 	printf("Script started, output file is %s\n", name);
     if ((pid = fork()) < 0)
       exit(2);
@@ -41,7 +45,8 @@ int main()
 	{
       // child
     	close(fdm);
-    	login_tty(fds); //a refaire
+//    	login_tty(fds); //a refaire
+    	ft_login_tty(fds); //DONE
     	execl("/bin/zsh", "zsh", NULL);
     	exit(3);
     }
