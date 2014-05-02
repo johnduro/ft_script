@@ -5,18 +5,28 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/05/01 15:17:23 by mle-roy           #+#    #+#              #
-#    Updated: 2014/05/01 20:28:30 by ael-kadh         ###   ########.fr        #
+#    Created: 2014/05/02 19:31:57 by mle-roy           #+#    #+#              #
+#    Updated: 2014/05/02 19:31:57 by mle-roy          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=ft_script
-VERSION=1.0.3
-CFLAGS=-Wall -Werror -Wextra -g3
+VERSION=1.0.4
+CFLAGS=-Wall -Werror -Wextra -g
 INCLUDES=-I ./libft/includes
-LIBS=-L ./libft -l ft -ltermcap
+LIBS=-L ./libft -l ft
 
-SRC=main.c move.c test.c m_strdup.c ft_termcaps.c
+SRC=fill_script.c \
+	ft_script.c \
+	ft_termcaps.c \
+	m_strdup.c \
+	m_strjoinwsep.c \
+	m_strnew.c \
+	m_strsplit.c \
+	m_strsub.c \
+	main.c \
+	move.c \
+	script_cmd.c \
 
 OBJ=$(SRC:.c=.o)
 
@@ -28,7 +38,7 @@ build:
 $(NAME): $(OBJ) ./libft/libft.a
 	gcc $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJ) $(LIBS)
 
-%.o: %.c ./libft/includes
+%.o: %.c script.h ./libft/includes
 	gcc $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:

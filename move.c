@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/29 19:28:03 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/01 18:40:37 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/02 18:04:02 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_ptsname(int fdm)
 	static char		ret[128];
 
 	if (ioctl(fdm, TIOCPTYGNAME, ret) < 0)
-	 	return (NULL);
+		return (NULL);
 	return (ret);
 }
 

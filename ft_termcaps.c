@@ -6,14 +6,14 @@
 /*   By: ael-kadh <ael-kadh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/05 19:58:15 by nsavry            #+#    #+#             */
-/*   Updated: 2014/05/01 20:41:47 by ael-kadh         ###   ########.fr       */
+/*   Updated: 2014/05/02 17:52:11 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <term.h>
 #include "script.h"
 
-void		ft_init_term()
+void		ft_init_term(void)
 {
 	struct termios				tattr;
 	static struct termios		*temp = NULL;
@@ -27,7 +27,7 @@ void		ft_init_term()
 	ioctl(0, TIOCSETA, &tattr);
 }
 
-void	ft_def_term()
+void		ft_def_term(void)
 {
 	struct termios	tattr;
 
