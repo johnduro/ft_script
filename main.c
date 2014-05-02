@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/04/30 17:22:59 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/01 20:35:50 by ael-kadh         ###   ########.fr       */
+/*   Updated: 2014/05/02 17:45:35 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void		script_cmd(t_script *script, char **env)
 		exit(sc_do_command(*(script->cmd), script->cmd, env));
 	while (*bws_path)
 	{
-		tmp = m_strjoinwsep(*path, *(inst->arg), '/');
+		tmp = m_strjoinwsep(*bws_path, *(script->cmd), '/');
 		if (check_access(tmp))
 		{
 			sc_do_command(tmp, script->cmd, env);
@@ -212,47 +212,55 @@ void		script_cmd(t_script *script, char **env)
 void		exec_script(t_script *script, int fdm, int fds)
 {
 	extern char		**environ;
+	char			*arg[2];
 
 	close(fdm);
 	ft_login_tty(fds);
 	if (script->cmd == NULL)
-		exeve(script->shell, ft_strrchr(script->shell, '/') + 1, environ);
+	{
+		arg[0] = ft_strrchr(script->shell, '/') + 1;
+		arg[1] = NULL;
+		execve(script->shell, arg, environ);
+	}
 	else
 		script_cmd(script, environ);
 	exit(3);
 }
 
-void		make_connex(int fdm, t_script *script)
+void		make_connex(int fdm, t_script *script, fd_set *set, int pid)
 {
-	fd_set	set;
 	char	buf[64];
 	int 	ret;
 
-	FD_SET(0, &set);
-	FD_SET(fdm, &set);
-	select(fdm+1, &set, NULL, NULL, NULL);
-	if (FD_ISSET(0, &set))
+	while (waitpid(pid, &ret, WNOHANG) != pid)
 	{
-		ret = read(0, buf, 64);
-		if (ret > 0)
-			write(fdm, buf, ret);
-	}
-	if (FD_ISSET(fdm, &set))
-	{
-		ret = read(fdm, buf, 64);
-		if (ret > 0)
+		FD_SET(0, set);
+		FD_SET(fdm, set);
+		select(fdm+1, set, NULL, NULL, NULL);
+		if (FD_ISSET(0, set))
 		{
-			write(1, buf, ret);
-			write(script->fd, buf, ret);
+			ret = read(0, buf, 64);
+			if (ret > 0)
+				write(fdm, buf, ret);
+		}
+		if (FD_ISSET(fdm, set))
+		{
+			ret = read(fdm, buf, 64);
+			if (ret > 0)
+			{
+				write(1, buf, ret);
+				write(script->fd, buf, ret);
+			}
 		}
 	}
 }
 
 void		ft_script(t_script *script)
 {
-	int		fdm;
-	int		fds;
-	int		pid;
+	int			fdm;
+	int			fds;
+	int			pid;
+	fd_set		set;
 
 	if (ft_open_pts(&fdm, &fds) == -1)
 		_exit(1);
@@ -262,8 +270,7 @@ void		ft_script(t_script *script)
 	close(fds);
 	ft_init_term();
 	FD_ZERO(&set);
-	while (waitpid(pid, &i, WNOHANG) != pid)
-		make_connex(fdm, script);
+	make_connex(fdm, script, &set, pid);
 	ft_print(0, script);
 	ft_def_term();
 	_exit(0);
@@ -290,7 +297,7 @@ void		ft_script(t_script *script)
 		close(fdm);
 		ft_login_tty(fds); //DONE
 		execl(script->shell, ft_strrchr(script->shell, '/') + 1, NULL);
-		exit(3);
+		_exit(3);
 	}
 	// father: copy stdin/out to/from master
 	close(fds);

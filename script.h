@@ -6,7 +6,7 @@
 /*   By: ael-kadh <ael-kadh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/01 18:52:54 by ael-kadh          #+#    #+#             */
-/*   Updated: 2014/05/01 20:41:53 by ael-kadh         ###   ########.fr       */
+/*   Updated: 2014/05/02 17:39:33 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <libft.h>
 # include "ft_malloc.h"
 
-# define USAGE "Please use it right\nft_script [ -option ] [ file [command] ]\n"
+# define USAGE "Please use it right\nft_script [ -ab (option) ] [ file [command] ]\n"
 
 typedef char	t_bool;
 

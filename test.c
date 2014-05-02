@@ -6,11 +6,17 @@
 /*   By: ael-kadh <ael-kadh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/01 18:49:01 by ael-kadh          #+#    #+#             */
-/*   Updated: 2014/05/01 19:31:45 by ael-kadh         ###   ########.fr       */
+/*   Updated: 2014/05/02 17:40:15 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "script.h"
+
+int				error_usage(void)
+{
+	ft_putstr_fd(USAGE, 2);
+	return (-1);
+}
 
 void			get_opt(char **av, t_script *script)
 {
@@ -30,14 +36,12 @@ void			get_opt(char **av, t_script *script)
 				else if (av[i][j] == 'q')
 					script->opt_q = 1;
 				else
-				{
-					ft_putstr_fd(USAGE, 2);
-					exit(0);
-				}
+					exit(error_usage());
 				j++;
 			}
-			break ;
 		}
+		else if (av[i][0] != '-')
+			break ;
 		i++;
 	}
 }
