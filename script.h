@@ -26,7 +26,7 @@
 # include <libft.h>
 # include "ft_malloc.h"
 
-# define USAGE "Please use it right\n"
+# define USAGE "Please use it right\nft_script [ -option ] [ file [command] ]\n"
 
 typedef char	t_bool;
 
@@ -40,11 +40,11 @@ typedef struct		s_script
 	char			*shell;
 }					t_script;
 
-void	ft_script(t_script *script);
-int		ft_open_pts(int *fdm, int *fds);
-int		ft_login_tty(int fd);
-char	*m_strdup(const char *s);
-void	ft_init_term();
-void	ft_def_term();
+void				ft_script(t_script *script);
+int					ft_open_pts(int *fdm, int *fds);
+int					ft_login_tty(int fd);
+char				*m_strdup(const char *s);
+void				ft_init_term();
+void				ft_def_term();
 
 #endif
